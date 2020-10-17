@@ -1,19 +1,30 @@
 <?php
 
+// ドキュメントルートは/var/www/htmlディレクトリ
+// /var/www/model/ディレクトリを指定する
 define('MODEL_PATH', $_SERVER['DOCUMENT_ROOT'] . '/../model/');
+// /var/www/view/ディレクトリを指定する
 define('VIEW_PATH', $_SERVER['DOCUMENT_ROOT'] . '/../view/');
 
-
+// ディレクトリを指定する
 define('IMAGE_PATH', '/assets/images/');
 define('STYLESHEET_PATH', '/assets/css/');
+// /var/www/assets/images/ディレクトリを指定する
 define('IMAGE_DIR', $_SERVER['DOCUMENT_ROOT'] . '/assets/images/' );
 
+// データベースの接続情報
+// MySQLのサーバー名
 define('DB_HOST', 'mysql');
+// MySQLのデータベース名
 define('DB_NAME', 'sample');
+// MySQLのユーザー名
 define('DB_USER', 'testuser');
+// MySQLのパスワード
 define('DB_PASS', 'password');
+// MySQLの文字コード
 define('DB_CHARSET', 'utf8');
 
+// ディレクトリを指定する
 define('SIGNUP_URL', '/signup.php');
 define('LOGIN_URL', '/login.php');
 define('LOGOUT_URL', '/logout.php');

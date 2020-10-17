@@ -145,7 +145,7 @@ function delete_item($db, $item_id){
 
 
 // 非DB
-
+// ステータスが公開であるitemの値を返す
 function is_open($item){
   return $item['status'] === 1;
 }

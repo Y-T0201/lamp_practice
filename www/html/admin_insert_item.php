@@ -1,23 +1,29 @@
 <?php
+// 定数ファイルを読み込み
 require_once '../conf/const.php';
+// 関数ファイルを読み込み
 require_once MODEL_PATH . 'functions.php';
+// userデータに関する関数ファイルを読み込み
 require_once MODEL_PATH . 'user.php';
+// itemデータに関する関数ファイルを読み込み
 require_once MODEL_PATH . 'item.php';
 
+// ログインチェックを行うため、セッションを開始
 session_start();
-
+// ログインチェック用の関数を使用
 if(is_logined() === false){
+  // ログインしていない場合はログインページにリダイレクト
   redirect_to(LOGIN_URL);
 }
-
+// PDOを取得
 $db = get_db_connect();
-
+// PDOを利用してログインユーザーのデータを取得
 $user = get_login_user($db);
-
+// adminユーザーでない場合はログインページにリダイレクト
 if(is_admin($user) === false){
   redirect_to(LOGIN_URL);
 }
-
+// 商品追加された、商品名、価格、ステータス、在庫、画像データを取得
 $name = get_post('name');
 $price = get_post('price');
 $status = get_post('status');
