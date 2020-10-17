@@ -5,6 +5,7 @@ function dd($var){
   exit();
 }
 
+// $urlページに移動する
 function redirect_to($url){
   header('Location: ' . $url);
   exit;
@@ -17,6 +18,7 @@ function get_get($name){
   return '';
 }
 
+// $nameがPOSTされたとき、POSTされた$nameデータを取得
 function get_post($name){
   if(isset($_POST[$name]) === true){
     return $_POST[$name];
@@ -24,6 +26,7 @@ function get_post($name){
   return '';
 }
 
+// $nameがPOSTされたとき、POSTされた$nameファイルを取得
 function get_file($name){
   if(isset($_FILES[$name]) === true){
     return $_FILES[$name];

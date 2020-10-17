@@ -6,13 +6,14 @@
   <link rel="stylesheet" href="<?php print(STYLESHEET_PATH . 'admin.css'); ?>">
 </head>
 <body>
+  <!-- ヘッダーのテンプレートを読み込み -->
   <?php 
   include VIEW_PATH . 'templates/header_logined.php'; 
   ?>
 
   <div class="container">
     <h1>商品管理</h1>
-
+    <!-- メッセージのテンプレートを読み込み -->
     <?php include VIEW_PATH . 'templates/messages.php'; ?>
 
     <form 
@@ -60,16 +61,17 @@
           </tr>
         </thead>
         <tbody>
+          <!-- 配列を値に代入 -->
           <?php foreach($items as $item){ ?>
           <tr class="<?php print(is_open($item) ? '' : 'close_item'); ?>">
             <td><img src="<?php print(IMAGE_PATH . $item['image']);?>" class="item_image"></td>
-            <td><?php print($item['name']); ?></td>
-            <td><?php print(number_format($item['price'])); ?>円</td>
+            <td><?php print(h($item['name'])); ?></td>
+            <td><?php print(h(number_format($item['price']))); ?>円</td>
             <td>
               <form method="post" action="admin_change_stock.php">
                 <div class="form-group">
                   <!-- sqlインジェクション確認のためあえてtext -->
-                  <input  type="text" name="stock" value="<?php print($item['stock']); ?>">
+                  <input  type="text" name="stock" value="<?php print(h($item['stock'])); ?>">
                   個
                 </div>
                 <input type="submit" value="変更" class="btn btn-secondary">
