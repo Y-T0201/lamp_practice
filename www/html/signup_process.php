@@ -29,3 +29,8 @@ try{
 set_message('ユーザー登録が完了しました。');
 login_as($db, $name, $password);
 redirect_to(HOME_URL);
+
+// トークンの照合
+if(is_valid_csrf_token($token) === true) {
+  unset($_SESSION['csrf_token']);
+}

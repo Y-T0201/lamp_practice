@@ -23,4 +23,9 @@ if(update_cart_amount($db, $cart_id, $amount)){
   set_error('購入数の更新に失敗しました。');
 }
 
+// トークンの照合
+if(is_valid_csrf_token($token) === true) {
+  unset($_SESSION['csrf_token']);
+}
+
 redirect_to(CART_URL);

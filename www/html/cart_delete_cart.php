@@ -22,4 +22,9 @@ if(delete_cart($db, $cart_id)){
   set_error('カートの削除に失敗しました。');
 }
 
+// トークンの照合
+if(is_valid_csrf_token($token) === true) {
+  unset($_SESSION['csrf_token']);
+}
+
 redirect_to(CART_URL);

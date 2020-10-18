@@ -25,4 +25,10 @@ set_message('ログインしました。');
 if ($user['type'] === USER_TYPE_ADMIN){
   redirect_to(ADMIN_URL);
 }
+
+// トークンの照合
+if(is_valid_csrf_token($token) === true) {
+  unset($_SESSION['csrf_token']);
+}
+
 redirect_to(HOME_URL);

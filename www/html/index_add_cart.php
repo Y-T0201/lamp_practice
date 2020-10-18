@@ -23,4 +23,9 @@ if(add_cart($db,$user['user_id'], $item_id)){
   set_error('カートの更新に失敗しました。');
 }
 
+// トークンの照合
+if(is_valid_csrf_token($token) === true) {
+  unset($_SESSION['csrf_token']);
+}
+
 redirect_to(HOME_URL);

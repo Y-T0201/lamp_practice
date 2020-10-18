@@ -23,4 +23,9 @@ if(purchase_carts($db, $carts) === false){
 
 $total_price = sum_carts($carts);
 
+// トークンの照合
+if(is_valid_csrf_token($token) === true) {
+  unset($_SESSION['csrf_token']);
+}
+
 include_once '../view/finish_view.php';

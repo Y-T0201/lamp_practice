@@ -31,5 +31,9 @@ if($changes_to === 'open'){
   set_error('不正なリクエストです。');
 }
 
+// トークンの照合
+if(is_valid_csrf_token($token) === true) {
+  unset($_SESSION['csrf_token']);
+}
 
 redirect_to(ADMIN_URL);

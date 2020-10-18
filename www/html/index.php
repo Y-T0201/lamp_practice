@@ -22,5 +22,9 @@ $db = get_db_connect();
 $user = get_login_user($db);
 // 商品一覧用の商品データを取得
 $items = get_open_items($db);
+
+// トークンの生成
+get_csrf_token();
+
 // ビューの読み込み
 include_once VIEW_PATH . 'index_view.php';
