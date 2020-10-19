@@ -42,7 +42,7 @@ function get_session($name){
   return '';
 }
 
-// セッションに値を保存する
+// セッションの値を変数に代入する
 function set_session($name, $value){
   $_SESSION[$name] = $value;
 }
