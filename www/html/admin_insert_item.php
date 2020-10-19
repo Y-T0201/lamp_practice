@@ -40,6 +40,8 @@ if(regist_item($db, $name, $price, $stock, $status, $image)){
 // トークンの照合
 if(is_valid_csrf_token($token) === true) {
   unset($_SESSION['csrf_token']);
+}else {
+  set_error('商品の登録に失敗しました。');
 }
 
 redirect_to(ADMIN_URL);

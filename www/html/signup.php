@@ -9,7 +9,7 @@ if(is_logined() === true){
 }
 
 // トークンの生成
-get_csrf_token();
+$token = get_csrf_token();
 
 include_once VIEW_PATH . 'signup_view.php';
 

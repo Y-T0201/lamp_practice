@@ -24,7 +24,7 @@ $user = get_login_user($db);
 $items = get_open_items($db);
 
 // トークンの生成
-get_csrf_token();
+$token = get_csrf_token();
 
 // ビューの読み込み
 include_once VIEW_PATH . 'index_view.php';
