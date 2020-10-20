@@ -101,6 +101,18 @@ function delete_cart($db, $cart_id){
   return execute_query($db, $sql, array($cart_id));
 }
 
+function insert_order($db, $user_id){
+  $sql = "
+    INSERT INTO
+      orders(
+        user_id,
+      )
+    VALUES(?)
+  ";
+
+  return execute_query($db, $sql, array($user_id));
+}
+
 function purchase_carts($db, $carts){
   if(validate_cart_purchase($carts) === false){
     return false;
