@@ -16,18 +16,20 @@ $user = get_login_user($db);
 
 $carts = get_user_carts($db, $user['user_id']);
 
-if(purchase_carts($db, $carts) === false){
-  set_error('商品が購入できませんでした。');
-  redirect_to(CART_URL);
-} 
-
-$total_price = sum_carts($carts);
-
+$token = get_post('token');
 // トークンの照合
 if(is_valid_csrf_token($token) === true) {
   unset($_SESSION['csrf_token']);
-}else {
-  set_error('商品の登録に失敗しました。');
+  // カート内に商品があるかの確認
+  if(purchase_carts($db, $carts) === false){
+    set_error('商品が購入できませんでした。');
+    redirect_to(CART_URL);
+  }
+} else {
+  set_error('トークンの照合に失敗しました。');
+  redirect_to(CART_URL);
 }
+
+$total_price = sum_carts($carts);
 
 include_once '../view/finish_view.php';

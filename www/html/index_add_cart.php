@@ -14,20 +14,20 @@ if(is_logined() === false){
 $db = get_db_connect();
 $user = get_login_user($db);
 
-
 $item_id = get_post('item_id');
 
-if(add_cart($db,$user['user_id'], $item_id)){
-  set_message('カートに商品を追加しました。');
-} else {
-  set_error('カートの更新に失敗しました。');
-}
-
+$token = get_post('token');
 // トークンの照合
 if(is_valid_csrf_token($token) === true) {
   unset($_SESSION['csrf_token']);
-}else {
-  set_error('商品の登録に失敗しました。');
+  // カートに商品を追加する
+  if(add_cart($db,$user['user_id'], $item_id)){
+    set_message('カートに商品を追加しました。');
+  } else {
+    set_error('カートの更新に失敗しました。');
+  }
+} else {
+  set_error('トークンの照合に失敗しました。');
 }
 
 redirect_to(HOME_URL);
