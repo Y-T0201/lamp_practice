@@ -14,13 +14,12 @@ $password = get_post('password');
 
 $db = get_db_connect();
 
-$user = login_as($db, $name, $password);
-
 $token = get_post('token');
 // トークンの照合
 if(is_valid_csrf_token($token) === true) {
   unset($_SESSION['csrf_token']);
-
+  // ユーザーIDとパスワードが登録されているかチェック
+  $user = login_as($db, $name, $password);
   // ログインチェック
   if($user === false){
     set_error('ログインに失敗しました。');
