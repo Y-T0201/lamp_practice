@@ -113,6 +113,32 @@ function insert_order($db, $user_id){
   return execute_query($db, $sql, array($user_id));
 }
 
+function insert_order_products($db, $item_id, $price){
+  $sql = "
+    INSERT INTO
+      order_products(
+        item_id,
+        price,
+      )
+    VALUES(?, ?)
+  ";
+
+  return execute_query($db, $sql, array($item_id, $price));
+}
+
+function insert_order_details($db, $item_id, $price){
+  $sql = "
+    INSERT INTO
+      order_details(
+        item_id,
+        price,
+      )
+    VALUES(?, ?)
+  ";
+
+  return execute_query($db, $sql, array($item_id, $price));
+}
+
 function purchase_carts($db, $carts){
   if(validate_cart_purchase($carts) === false){
     return false;
