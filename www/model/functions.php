@@ -34,7 +34,7 @@ function get_file($name){
   return array();
 }
 
-// セッションに値が保存されていたら、変数を返す
+// $nameがセッションに保存されているとき、セッション変数$nameを返す
 function get_session($name){
   if(isset($_SESSION[$name]) === true){
     return $_SESSION[$name];
@@ -42,7 +42,7 @@ function get_session($name){
   return '';
 }
 
-// セッションの値を変数に代入する
+// $nameをセッション変数として記録する
 function set_session($name, $value){
   $_SESSION[$name] = $value;
 }
@@ -90,6 +90,7 @@ function get_upload_filename($file){
   return get_random_string() . '.' . $ext;
 }
 
+// ハッシュの数値の基数を任意に変換し、一部分を返す
 function get_random_string($length = 20){
   return substr(base_convert(hash('sha256', uniqid()), 16, 36), 0, $length);
 }
