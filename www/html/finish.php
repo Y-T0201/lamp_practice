@@ -25,13 +25,11 @@ $db->beginTransaction();
 // カートの商品が購入できなければ、カート画面へ戻す
 if(purchase_carts($db, $carts) === false){
   set_error('商品が購入できませんでした。');
-  redirect_to(CART_URL);
 } 
 
 //購入履歴にユーザーIDを登録 
 if(insert_orders($db, $user_id) === false) {
   set_error('購入履歴にユーザーIDが登録できませんでした。');
-  redirect_to(CART_URL);
 } 
   
 // order_idの取得
@@ -45,11 +43,9 @@ foreach($carts as $cart){
 
   if(insert_order_products($db, $order_id, $item_id, $price) === false) {
     set_error('購入履歴に商品価格が登録できませんでした。');
-    redirect_to(CART_URL);
   }
   if(insert_order_details($db, $order_id, $item_id, $amount) === false) {
     set_error('購入履歴に購入数量が登録できませんでした。');
-    redirect_to(CART_URL);
   }
 }
 
@@ -62,6 +58,7 @@ if(has_error() === false){
 } else {
   // ロールバック処理
   $db->rollback();
+  redirect_to(CART_URL);
 // トランザクション終了
 }
 
