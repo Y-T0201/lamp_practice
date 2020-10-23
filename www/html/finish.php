@@ -19,13 +19,27 @@ $carts = get_user_carts($db, $user['user_id']);
 
 $user_id = $user['user_id'];
 
+$token = get_post('token');
+// トークンの照合
+if(is_valid_csrf_token($token) === true) {
+  unset($_SESSION['csrf_token']);
+  // カート内に商品があるかの確認
+  if(purchase_carts($db, $carts) === false){
+    set_error('商品が購入できませんでした。');
+    redirect_to(CART_URL);
+  }
+} else {
+  set_error('トークンの照合に失敗しました。');
+  redirect_to(CART_URL);
+}
+
 //トランザクション開始
 $db->beginTransaction();
 
 // カートの商品が購入できなければ、カート画面へ戻す
 if(purchase_carts($db, $carts) === false){
   set_error('商品が購入できませんでした。');
-} 
+}
 
 //購入履歴にユーザーIDを登録 
 if(insert_orders($db, $user_id) === false) {
