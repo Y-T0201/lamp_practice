@@ -36,9 +36,6 @@ $orders = get_all_order($db);
 $orders = get_order($db, $user_id);
 }
 
-// 各購入履歴の合計金額を取得
-$total_order = sum_order($orders);
-
 // トークンの生成
 $token = get_csrf_token();
 // セッションに保存
