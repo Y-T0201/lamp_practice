@@ -20,7 +20,6 @@ $total_price = sum_carts($carts);
 
 // トークンの生成
 $token = get_csrf_token();
-
 // セッションに保存
 $_SESSION['csrf_token'] = $token;
 

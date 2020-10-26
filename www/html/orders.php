@@ -7,6 +7,8 @@ require_once MODEL_PATH . 'functions.php';
 require_once MODEL_PATH . 'user.php';
 // itemデータに関する関数ファイルを読み込み
 require_once MODEL_PATH . 'item.php';
+// ordersデータに関する関数ファイルを読み込み
+require_once MODEL_PATH . 'orders.php';
 // ログインチェックを行うため、セッションを開始する
 session_start();
 
@@ -23,10 +25,24 @@ $user = get_login_user($db);
 // 商品一覧用の商品データを取得
 $items = get_open_items($db);
 
+// ユーザーIDの取得
+$user_id = $user['user_id'];
+
+// 全ての購入履歴データを取得
+if(is_admin($user)){
+$orders = get_all_order($db);
+// 指定されたユーザーの購入履歴データを取得
+} else {
+$orders = get_order($db, $user_id);
+}
+
+// 各購入履歴の合計金額を取得
+$total_order = sum_order($orders);
+
 // トークンの生成
 $token = get_csrf_token();
 // セッションに保存
 $_SESSION['csrf_token'] = $token;
 
 // ビューの読み込み
-include_once VIEW_PATH . 'index_view.php';
+include_once VIEW_PATH . 'orders_view.php';

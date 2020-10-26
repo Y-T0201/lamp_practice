@@ -101,81 +101,6 @@ function delete_cart($db, $cart_id){
   return execute_query($db, $sql, array($cart_id));
 }
 
-// 購入時にユーザーIDを登録する
-function insert_orders($db, $user_id){
-  $sql = "
-    INSERT INTO
-      orders(
-        user_id
-      )
-    VALUES(?)
-  ";
-
-  return execute_query($db, $sql, array($user_id));
-}
-
-// 購入時に商品の金額を登録する
-function insert_order_products($db, $order_id, $item_id, $price){
-  $sql = "
-    INSERT INTO
-      order_products(
-        order_id,
-        item_id,
-        price
-      )
-    VALUES(?, ?, ?)
-  ";
-
-  return execute_query($db, $sql, array($order_id, $item_id, $price));
-}
-
-// 購入時に商品の購入数量を登録する
-function insert_order_details($db, $order_id, $item_id, $amount){
-  $sql = "
-    INSERT INTO
-      order_details(
-        order_id,
-        item_id,
-        amount
-      )
-    VALUES(?, ?, ?)
-  ";
-
-  return execute_query($db, $sql, array($order_id, $item_id, $amount));
-}
-
-// 購入履歴テーブルのデータを表示
-function get_orders($db, $user_id){
-  $sql = "
-    SELECT
-      orders.order_id,
-      orders.user_id,
-      order_products.item_id,
-      order_products.price,
-      order_details.amount
-    FROM
-      orders
-    JOIN
-      order_products
-    ON
-      orders.order_id = order_products.order_id
-    JOIN
-      order_details
-    ON
-      orders.order_id = order_details.order_id
-    WHERE
-      order.user_id = ?
-  ";
-  return fetch_all_query($db, $sql, array($user_id));
-}
-
-// order_idの取得
-function get_order_id($db){
-  $order_id=$db->lastInsertId();
-
-  return $order_id;
-}
-
 function purchase_carts($db, $carts){
   if(validate_cart_purchase($carts) === false){
     return false;
@@ -203,7 +128,6 @@ function delete_user_carts($db, $user_id){
 
   execute_query($db, $sql, array($user_id));
 }
-
 
 function sum_carts($carts){
   $total_price = 0;
