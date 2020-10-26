@@ -1,10 +1,5 @@
 <!DOCTYPE html>
 <html lang="ja">
-<!-- <style>
-.margin50{
-    margin-right: 50px;
-  }
-</style> -->
 <head>
   <?php include VIEW_PATH . 'templates/head.php'; ?>
   
