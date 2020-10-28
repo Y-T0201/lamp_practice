@@ -41,6 +41,81 @@ function get_items($db, $is_open = false){
   }
 
   return fetch_all_query($db, $sql);
+}  
+
+// 登録が新しい順
+function get_new_items($db, $is_open = false){
+  $sql = '
+    SELECT
+      item_id, 
+      name,
+      stock,
+      price,
+      image,
+      status
+    FROM
+      items
+  ';
+  if($is_open === true){
+    $sql .= '
+      WHERE status = 1
+    ';
+  }
+  $sql .= '
+    ORDER BY
+      created DESC;
+  ';
+  return fetch_all_query($db, $sql);
+}
+
+// 価格の安い順
+function get_price_low_items($db, $is_open = false){
+  $sql = '
+    SELECT
+      item_id, 
+      name,
+      stock,
+      price,
+      image,
+      status
+    FROM
+      items
+  ';
+  if($is_open === true){
+    $sql .= '
+      WHERE status = 1
+    ';
+  }
+  $sql .= '
+    ORDER BY
+      price DESC;
+  ';
+  return fetch_all_query($db, $sql);
+}
+
+// 価格の高い順
+function get_price_high_items($db, $is_open = false){
+  $sql = '
+    SELECT
+      item_id, 
+      name,
+      stock,
+      price,
+      image,
+      status
+    FROM
+      items
+  ';
+  if($is_open === true){
+    $sql .= '
+      WHERE status = 1
+    ';
+  }
+  $sql .= '
+    ORDER BY
+      price ASC;
+  ';
+  return fetch_all_query($db, $sql);
 }
 
 function get_all_items($db){
@@ -49,6 +124,18 @@ function get_all_items($db){
 
 function get_open_items($db){
   return get_items($db, true);
+}
+
+function get_open_new_items($db){
+  return get_new_items($db, true);
+}
+
+function get_open_price_low_items($db){
+  return get_price_low_items($db, true);
+}
+
+function get_open_price_high_items($db){
+  return get_price_high_items($db, true);
 }
 
 function regist_item($db, $name, $price, $stock, $status, $image){

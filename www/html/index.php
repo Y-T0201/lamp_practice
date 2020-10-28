@@ -20,13 +20,29 @@ if(is_logined() === false){
 $db = get_db_connect();
 // PDOを利用してログインユーザーのデータを取得
 $user = get_login_user($db);
-// 商品一覧用の商品データを取得
-$items = get_open_items($db);
 
 // トークンの生成
 $token = get_csrf_token();
-// セッションに保存
-$_SESSION['csrf_token'] = $token;
+
+// 商品一覧用の商品データを取得
+$items = get_open_items($db);
+if(isset($_GET['sort'])) {
+  $sort = get_get('sort');
+
+  // 新着順
+  if($sort === "new"){
+    $items = get_open_new_items($db);
+  // 価格が安い順
+  } else if($sort === "price_low"){
+    $items = get_open_price_low_items($db);
+  // 価格が高い順
+  } else if($sort === "price_high"){
+    $items = get_open_price_high_items($db);
+  // 指定していないとき
+  } else {
+    $items = get_open_items($db);
+  }  
+}
 
 // ビューの読み込み
 include_once VIEW_PATH . 'index_view.php';
