@@ -9,6 +9,7 @@ define('VIEW_PATH', $_SERVER['DOCUMENT_ROOT'] . '/../view/');
 // ディレクトリを指定する
 define('IMAGE_PATH', '/assets/images/');
 define('STYLESHEET_PATH', '/assets/css/');
+define('JAVASCRIPT_PATH', '/assets/javascript/');
 // /var/www/assets/images/ディレクトリを指定する
 define('IMAGE_DIR', $_SERVER['DOCUMENT_ROOT'] . '/assets/images/' );
 

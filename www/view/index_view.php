@@ -2,18 +2,28 @@
 <html lang="ja">
 <head>
   <?php include VIEW_PATH . 'templates/head.php'; ?>
-  
+
   <title>商品一覧</title>
   <link rel="stylesheet" href="<?php print(STYLESHEET_PATH . 'index.css'); ?>">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script type="text/javascript" src="<?php print(JAVASCRIPT_PATH . 'javascript.js'); ?>"></script>
 </head>
 <body>
   <?php include VIEW_PATH . 'templates/header_logined.php'; ?>
-  
 
   <div class="container">
     <h1>商品一覧</h1>
     <?php include VIEW_PATH . 'templates/messages.php'; ?>
-
+    <div class="right">
+      <form id='submit_form' method='get' action='index.php'>
+        <select id='submit_select' name='sort'>
+          <option value='new'>新着順</option>
+          <option value='price_low'>価格の安い順</option>
+          <option value='price_high'>価格の高い順</option>
+        </select>
+        <input class="btn btn-secondary" type='submit' value='並び替え'> 
+      </form>
+    </div>
     <div class="card-deck">
       <div class="row">
       <?php foreach($items as $item){ ?>
@@ -43,6 +53,5 @@
       </div>
     </div>
   </div>
-  
 </body>
 </html>

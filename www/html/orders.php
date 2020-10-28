@@ -30,16 +30,14 @@ $user_id = $user['user_id'];
 
 // 全ての購入履歴データを取得
 if(is_admin($user)){
-$orders = get_all_order($db);
+  $orders = get_all_order($db);
 // 指定されたユーザーの購入履歴データを取得
 } else {
-$orders = get_order($db, $user_id);
+  $orders = get_order($db, $user_id);
 }
 
 // トークンの生成
 $token = get_csrf_token();
-// セッションに保存
-$_SESSION['csrf_token'] = $token;
 
 // ビューの読み込み
 include_once VIEW_PATH . 'orders_view.php';
