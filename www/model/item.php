@@ -118,6 +118,40 @@ function get_price_high_items($db, $is_open = false){
   return fetch_all_query($db, $sql);
 }
 
+// 購入数が多い順
+function get_ranking_items($db, $is_open = false){
+  $sql = '
+    SELECT
+      items.item_id, 
+      items.name,
+      items.stock,
+      items.price,
+      items.image,
+      items.status,
+      SUM(amount)
+    FROM
+      items
+    JOIN
+      order_details
+    ON
+      items.item_id = order_details.item_id
+  ';
+  if($is_open === true){
+    $sql .= '
+      WHERE status = 1
+    ';
+  }
+  $sql .= '
+    GROUP BY
+      item_id
+    ORDER BY
+      SUM(amount) DESC
+    LIMIT
+      3;
+  ';
+  return fetch_all_query($db, $sql);
+}
+
 function get_all_items($db){
   return get_items($db);
 }
@@ -125,19 +159,22 @@ function get_all_items($db){
 function get_open_items($db){
   return get_items($db, true);
 }
-
+// 公開可の登録が新しい順
 function get_open_new_items($db){
   return get_new_items($db, true);
 }
-
+// 公開可の価格が低い順
 function get_open_price_low_items($db){
   return get_price_low_items($db, true);
 }
-
+// 公開可の価格が低い順
 function get_open_price_high_items($db){
   return get_price_high_items($db, true);
 }
-
+// 公開可の価格が低い順
+function get_open_ranking_items($db){
+  return get_ranking_items($db, true);
+}
 function regist_item($db, $name, $price, $stock, $status, $image){
   $filename = get_upload_filename($image);
   if(validate_item($name, $price, $stock, $filename, $status) === false){

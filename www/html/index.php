@@ -43,6 +43,8 @@ if(isset($_GET['sort'])) {
     $items = get_open_items($db);
   }  
 }
+$ranking = 0;
+$ranking_items = get_open_ranking_items($db);
 
 // ビューの読み込み
 include_once VIEW_PATH . 'index_view.php';
