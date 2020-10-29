@@ -2,7 +2,12 @@
 <html lang="ja">
 <head>
   <?php include VIEW_PATH . 'templates/head.php'; ?>
-
+  <!-- <style>
+    img {
+      max-width: 300px;
+      max-height: 300px;
+    }
+  </style> -->
   <title>商品一覧</title>
   <link rel="stylesheet" href="<?php print(STYLESHEET_PATH . 'index.css'); ?>">
   <script type="text/javascript" src="<?php print(JAVASCRIPT_PATH . 'javascript.js'); ?>"></script>
@@ -54,7 +59,7 @@
   </div>
   <div class="container-fluid">
   <h2 class="ranking">人気商品ランキング</h2>
-    <div class="card-deck">
+    <div class="card-deck mb-5">
       <div class="row">
       <?php foreach($ranking_items as $ranking_item){ ?>
         <div class="col-sm item">
