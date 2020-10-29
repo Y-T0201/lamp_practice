@@ -2,7 +2,12 @@
 <html lang="ja">
 <head>
   <?php include VIEW_PATH . 'templates/head.php'; ?>
-
+  <!-- <style>
+    img {
+      max-width: 300px;
+      max-height: 300px;
+    }
+  </style> -->
   <title>商品一覧</title>
   <link rel="stylesheet" href="<?php print(STYLESHEET_PATH . 'index.css'); ?>">
   <script type="text/javascript" src="<?php print(JAVASCRIPT_PATH . 'javascript.js'); ?>"></script>
@@ -57,7 +62,7 @@
     <div class="card-deck">
       <div class="row">
       <?php foreach($items as $item){ ?>
-        <div class="col-6 item">
+        <div class="col-sm item">
           <div class="card h-100 text-center">
             <div class="card-header">
               <?php print(h($item['name'])); ?>
@@ -71,6 +76,38 @@
                     <input type="hidden" name="token" value="<?php print($token); ?>">
                     <input type="submit" value="カートに追加" class="btn btn-primary btn-block">
                     <input type="hidden" name="item_id" value="<?php print($item['item_id']); ?>">
+                  </form>
+                <?php } else { ?>
+                  <p class="text-danger">現在売り切れです。</p>
+                <?php } ?>
+              </figcaption>
+            </figure>
+          </div>
+        </div>
+      <?php } ?>
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid">
+  <h2 class="ranking">人気商品ランキング</h2>
+    <div class="card-deck mb-5">
+      <div class="row">
+      <?php foreach($ranking_items as $ranking_item){ ?>
+        <div class="col-sm item">
+        <?php print(++$ranking . '位') ?>
+          <div class="card h-100 text-center">
+            <div class="card-header">
+              <?php print(h($ranking_item['name'])); ?>
+            </div>
+            <figure class="card-body">
+              <img class="card-img" src="<?php print(IMAGE_PATH . $ranking_item['image']); ?>">
+              <figcaption>
+                <?php print(h(number_format($ranking_item['price']))); ?>円
+                <?php if($ranking_item['stock'] > 0){ ?>
+                  <form action="index_add_cart.php" method="post">
+                    <input type="hidden" name="token" value="<?php print($token); ?>">
+                    <input type="submit" value="カートに追加" class="btn btn-primary btn-block">
+                    <input type="hidden" name="item_id" value="<?php print($ranking_item['item_id']); ?>">
                   </form>
                 <?php } else { ?>
                   <p class="text-danger">現在売り切れです。</p>
