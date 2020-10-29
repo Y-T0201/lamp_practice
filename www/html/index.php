@@ -25,18 +25,13 @@ $user = get_login_user($db);
 $token = get_csrf_token();
 
 // GETで現在のページ数を取得する
-if (isset($_GET['page'])) {
-  $page = (int)get_get('page');
-} else {
+$page = (int)get_get('page');
+if (isset($_GET['page']) === false) {
   $page = 1;
 }
 
 // スタートのポジションを計算する
-if ($page > 1) {
-  $start = ($page * 8) -8;
-} else {
-  $start = 0;
-}
+$start = ($page-1) * 8;
 
 // 商品件数を取得する
 $page_num = get_open_pages_items($db, $start);
