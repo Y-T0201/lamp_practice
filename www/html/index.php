@@ -46,23 +46,23 @@ $pagination = ceil($page_num['item_count'] / 8);
 
 
 // 商品一覧用の商品データを取得
-$items = get_open_8_items($db, $start);
+$items = get_open_new_items($db, $start);
 // var_dump($items);
 if(isset($_GET['sort'])) {
   $sort = get_get('sort');
 
   // 新着順
   if($sort === "new"){
-    $items = get_open_new_items($db);
+    $items = get_open_new_items($db, $start);
   // 価格が安い順
   } else if($sort === "price_low"){
-    $items = get_open_price_low_items($db);
+    $items = get_open_price_low_items($db, $start);
   // 価格が高い順
   } else if($sort === "price_high"){
-    $items = get_open_price_high_items($db);
+    $items = get_open_price_high_items($db, $start);
   // 指定していないとき
   } else {
-    $items = get_open_items($db);
+    $items = get_open_new_items($db, $start);
   }  
 }
 

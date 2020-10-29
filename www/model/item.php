@@ -65,12 +65,11 @@ function get_8_items($db, $is_open = false, $start){
       ?, 8;
   ';
   }
-  print($sql);
   return fetch_all_query($db, $sql, array($start));
 }  
 
 // 登録が新しい順
-function get_new_items($db, $is_open = false){
+function get_new_items($db, $is_open = false, $start){
   $sql = '
     SELECT
       item_id, 
@@ -89,13 +88,15 @@ function get_new_items($db, $is_open = false){
   }
   $sql .= '
     ORDER BY
-      created DESC;
+      created DESC
+    LIMIT
+      ?, 8;
   ';
-  return fetch_all_query($db, $sql);
+  return fetch_all_query($db, $sql, array($start));
 }
 
 // 価格の安い順
-function get_price_low_items($db, $is_open = false){
+function get_price_low_items($db, $is_open = false, $start){
   $sql = '
     SELECT
       item_id, 
@@ -114,13 +115,15 @@ function get_price_low_items($db, $is_open = false){
   }
   $sql .= '
     ORDER BY
-      price DESC;
+      price ASC
+    LIMIT
+      ?, 8;
   ';
-  return fetch_all_query($db, $sql);
+  return fetch_all_query($db, $sql, array($start));
 }
 
 // 価格の高い順
-function get_price_high_items($db, $is_open = false){
+function get_price_high_items($db, $is_open = false, $start){
   $sql = '
     SELECT
       item_id, 
@@ -139,9 +142,11 @@ function get_price_high_items($db, $is_open = false){
   }
   $sql .= '
     ORDER BY
-      price ASC;
+      price DESC
+    LIMIT
+      ?, 8;
   ';
-  return fetch_all_query($db, $sql);
+  return fetch_all_query($db, $sql, array($start));
 }
 
 // itemsテーブルに入っているデータ件数を取得する
@@ -178,16 +183,16 @@ function get_open_8_items($db, $start){
   return get_8_items($db, true, $start);
 }
 
-function get_open_new_items($db){
-  return get_new_items($db, true);
+function get_open_new_items($db, $start){
+  return get_new_items($db, true, $start);
 }
 
-function get_open_price_low_items($db){
-  return get_price_low_items($db, true);
+function get_open_price_low_items($db, $start){
+  return get_price_low_items($db, true, $start);
 }
 
-function get_open_price_high_items($db){
-  return get_price_high_items($db, true);
+function get_open_price_high_items($db, $start){
+  return get_price_high_items($db, true, $start);
 }
 
 function regist_item($db, $name, $price, $stock, $status, $image){
