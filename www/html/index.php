@@ -39,7 +39,6 @@ $page_num = get_open_pages_items($db, $start);
 // ページネーションの数を取得する
 $pagination = ceil($page_num['item_count'] / 8);
 
-
 // 商品一覧用の商品データを取得
 $items = get_open_new_items($db, $start);
 // var_dump($items);
