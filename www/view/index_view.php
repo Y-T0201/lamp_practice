@@ -24,6 +24,9 @@
         <input class="btn btn-secondary" type='submit' value='並び替え'> 
       </form>
     </div>
+    <?php for ($x=1; $x<=$pagination; $x++) { ?>
+      <a href="?page=<?php print($x) ?>&sort=<?php print($sort) ?>"><?php print($x); ?></a>
+    <?php } ?>
     <div class="card-deck">
       <div class="row">
       <?php foreach($items as $item){ ?>

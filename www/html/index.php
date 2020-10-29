@@ -24,8 +24,30 @@ $user = get_login_user($db);
 // トークンの生成
 $token = get_csrf_token();
 
+// GETで現在のページ数を取得する
+if (isset($_GET['page'])) {
+  $page = (int)get_get('page');
+} else {
+  $page = 1;
+}
+
+// スタートのポジションを計算する
+if ($page > 1) {
+  $start = ($page * 8) -8;
+} else {
+  $start = 0;
+}
+
+// 商品件数を取得する
+$page_num = get_open_pages_items($db, $start);
+
+// ページネーションの数を取得する
+$pagination = ceil($page_num['item_count'] / 8);
+
+
 // 商品一覧用の商品データを取得
-$items = get_open_items($db);
+$items = get_open_8_items($db, $start);
+// var_dump($items);
 if(isset($_GET['sort'])) {
   $sort = get_get('sort');
 

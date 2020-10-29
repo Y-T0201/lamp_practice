@@ -43,6 +43,32 @@ function get_items($db, $is_open = false){
   return fetch_all_query($db, $sql);
 }  
 
+// 8件ずつ商品を表示する
+function get_8_items($db, $is_open = false, $start){
+  $sql = '
+    SELECT
+      item_id, 
+      name,
+      stock,
+      price,
+      image,
+      status
+    FROM
+      items
+  ';
+  if($is_open === true){
+    $sql .= '
+      WHERE status = 1
+    ';
+  $sql .= '
+    LIMIT
+      ?, 8;
+  ';
+  }
+  print($sql);
+  return fetch_all_query($db, $sql, array($start));
+}  
+
 // 登録が新しい順
 function get_new_items($db, $is_open = false){
   $sql = '
@@ -118,12 +144,38 @@ function get_price_high_items($db, $is_open = false){
   return fetch_all_query($db, $sql);
 }
 
+// itemsテーブルに入っているデータ件数を取得する
+function get_pages_items($db, $is_open = false){
+  $sql = '
+    SELECT
+      COUNT(*) AS item_count
+    FROM
+      items
+  ';
+  if($is_open === true){
+    $sql .= '
+      WHERE status = 1
+    ';
+  }
+  return fetch_query($db, $sql);
+}
+
 function get_all_items($db){
   return get_items($db);
 }
 
 function get_open_items($db){
   return get_items($db, true);
+}
+
+// 公開可の商品件数を取得する
+function get_open_pages_items($db){
+  return get_pages_items($db, true);
+}
+
+// 8件ずつ公開可の商品を表示する
+function get_open_8_items($db, $start){
+  return get_8_items($db, true, $start);
 }
 
 function get_open_new_items($db){
