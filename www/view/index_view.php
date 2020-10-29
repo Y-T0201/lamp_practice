@@ -28,6 +28,37 @@
         <input class="btn btn-secondary" type='submit' value='並び替え'> 
       </form>
     </div>
+    <nav aria-label="...">
+      <ul class="pagination">
+        <li class="page-item">
+          <?php if($page > 1) { ?>
+            <a class="page-link" href="?page=<?php print($page - 1) ?>&sort=<?php print($sort) ?>">
+          <?php } else { ?>
+            <a class="page-link" href="?page=1&sort=<?php print($sort) ?>">
+          <?php } ?>    
+              Previous
+            </a>
+        </li>
+        <?php for ($x=1; $x<=$pagination; $x++) { ?>
+          <?php if($x === $page) { ?>
+            <li class="page-item active">
+          <?php } ?>
+            <a class="page-link" href="?page=<?php print($x) ?>&sort=<?php print($sort) ?>" >
+              <?php print($x); ?>
+            </a>
+          </li>
+        <?php } ?> 
+        <li class="page-item">
+          <?php if($page < $pagination) { ?>
+            <a class="page-link" href="?page=<?php print($page + 1) ?>&sort=<?php print($sort) ?>">
+          <?php } else { ?>
+            <a class="page-link" href="?page=<?php print($pagination) ?>&sort=<?php print($sort) ?>">
+          <?php } ?>    
+              Next
+            </a>
+        </li>
+      </ul>  
+    </nav>
     <div class="card-deck">
       <div class="row">
       <?php foreach($items as $item){ ?>
