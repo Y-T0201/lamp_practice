@@ -23,7 +23,7 @@
         <input class="btn btn-secondary" type='submit' value='並び替え'> 
       </form>
     </div>
-    <nav class="...">
+    <nav>
       <ul class="pagination">
         <li class="page-item">
           <?php if($page > 1) { ?>
