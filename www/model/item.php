@@ -44,7 +44,7 @@ function get_items($db, $is_open = false){
 }  
 
 // 8件ずつ商品を表示する
-function get_8_items($db, $is_open = false, $start=0, $one_page_items){
+function get_8_items($db, $is_open = false, $start=0, $one_page_items=ONE_PAGE_ITEMS){
   $sql = '
     SELECT
       item_id, 
@@ -69,7 +69,7 @@ function get_8_items($db, $is_open = false, $start=0, $one_page_items){
 }  
 
 // 登録が新しい順
-function get_new_items($db, $is_open = false, $start=0, $one_page_items){
+function get_new_items($db, $is_open = false, $start=0, $one_page_items=ONE_PAGE_ITEMS){
   $sql = '
     SELECT
       item_id, 
@@ -96,7 +96,7 @@ function get_new_items($db, $is_open = false, $start=0, $one_page_items){
 }
 
 // 価格の安い順
-function get_price_low_items($db, $is_open = false, $start=0, $one_page_items){
+function get_price_low_items($db, $is_open = false, $start=0, $one_page_items=ONE_PAGE_ITEMS){
   $sql = '
     SELECT
       item_id, 
@@ -123,7 +123,7 @@ function get_price_low_items($db, $is_open = false, $start=0, $one_page_items){
 }
 
 // 価格の高い順
-function get_price_high_items($db, $is_open = false, $start=0, $one_page_items){
+function get_price_high_items($db, $is_open = false, $start=0, $one_page_items=ONE_PAGE_ITEMS){
   $sql = '
     SELECT
       item_id, 
