@@ -28,16 +28,14 @@
         <input class="btn btn-secondary" type='submit' value='並び替え'> 
       </form>
     </div>
-    <nav aria-label="...">
+    <nav>
       <ul class="pagination">
         <li class="page-item">
           <?php if($page > 1) { ?>
             <a class="page-link" href="?page=<?php print($page - 1) ?>&sort=<?php print($sort) ?>">
-          <?php } else { ?>
-            <a class="page-link" href="?page=1&sort=<?php print($sort) ?>">
-          <?php } ?>    
               Previous
             </a>
+          <?php } ?> 
         </li>
         <?php for ($x=1; $x<=$pagination; $x++) { ?>
           <?php if($x === $page) { ?>
@@ -50,12 +48,10 @@
         <?php } ?> 
         <li class="page-item">
           <?php if($page < $pagination) { ?>
-            <a class="page-link" href="?page=<?php print($page + 1) ?>&sort=<?php print($sort) ?>">
-          <?php } else { ?>
-            <a class="page-link" href="?page=<?php print($pagination) ?>&sort=<?php print($sort) ?>">
-          <?php } ?>    
+            <a class="page-link" href="?page=<?php print($page + 1) ?>&sort=<?php print($sort) ?>"> 
               Next
             </a>
+          <?php } ?> 
         </li>
       </ul>  
     </nav>

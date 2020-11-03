@@ -25,44 +25,39 @@ $user = get_login_user($db);
 $token = get_csrf_token();
 
 // GETで現在のページ数を取得する
-if (isset($_GET['page'])) {
-  $page = (int)get_get('page');
-} else {
+$page = (int)get_get('page');
+if (empty($page)) {
   $page = 1;
 }
 
 // スタートのポジションを計算する
-if ($page > 1) {
-  $start = ($page * 8) -8;
-} else {
-  $start = 0;
-}
+$start = ($page-1) * 8;
 
+$one_page_items = ONE_PAGE_ITEMS;
 // 商品件数を取得する
 $page_num = get_open_pages_items($db, $start);
 
 // ページネーションの数を取得する
 $pagination = ceil($page_num['item_count'] / 8);
 
-
 // 商品一覧用の商品データを取得
-$items = get_open_new_items($db, $start);
+$items = get_open_new_items($db, $start, $one_page_items);
 // var_dump($items);
 if(isset($_GET['sort'])) {
   $sort = get_get('sort');
 
   // 新着順
   if($sort === "new"){
-    $items = get_open_new_items($db, $start);
+    $items = get_open_new_items($db, $start, $one_page_items);
   // 価格が安い順
   } else if($sort === "price_low"){
-    $items = get_open_price_low_items($db, $start);
+    $items = get_open_price_low_items($db, $start, $one_page_items);
   // 価格が高い順
   } else if($sort === "price_high"){
-    $items = get_open_price_high_items($db, $start);
+    $items = get_open_price_high_items($db, $start, $one_page_items);
   // 指定していないとき
   } else {
-    $items = get_open_new_items($db, $start);
+    $items = get_open_new_items($db, $start, $one_page_items);
   }  
 }
 $ranking = 0;

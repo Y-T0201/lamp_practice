@@ -44,7 +44,7 @@ function get_items($db, $is_open = false){
 }  
 
 // 8件ずつ商品を表示する
-function get_8_items($db, $is_open = false, $start){
+function get_8_items($db, $is_open = false, $start=0, $one_page_items=ONE_PAGE_ITEMS){
   $sql = '
     SELECT
       item_id, 
@@ -62,14 +62,14 @@ function get_8_items($db, $is_open = false, $start){
     ';
   $sql .= '
     LIMIT
-      ?, 8;
+      ?, ?;
   ';
   }
-  return fetch_all_query($db, $sql, array($start));
+  return fetch_all_query($db, $sql, array($start, $one_page_items));
 }  
 
 // 登録が新しい順
-function get_new_items($db, $is_open = false, $start){
+function get_new_items($db, $is_open = false, $start=0, $one_page_items=ONE_PAGE_ITEMS){
   $sql = '
     SELECT
       item_id, 
@@ -90,13 +90,13 @@ function get_new_items($db, $is_open = false, $start){
     ORDER BY
       created DESC
     LIMIT
-      ?, 8;
+      ?, ?;
   ';
-  return fetch_all_query($db, $sql, array($start));
+  return fetch_all_query($db, $sql, array($start, $one_page_items));
 }
 
 // 価格の安い順
-function get_price_low_items($db, $is_open = false, $start){
+function get_price_low_items($db, $is_open = false, $start=0, $one_page_items=ONE_PAGE_ITEMS){
   $sql = '
     SELECT
       item_id, 
@@ -117,13 +117,13 @@ function get_price_low_items($db, $is_open = false, $start){
     ORDER BY
       price ASC
     LIMIT
-      ?, 8;
+      ?, ?;
   ';
-  return fetch_all_query($db, $sql, array($start));
+  return fetch_all_query($db, $sql, array($start, $one_page_items));
 }
 
 // 価格の高い順
-function get_price_high_items($db, $is_open = false, $start){
+function get_price_high_items($db, $is_open = false, $start=0, $one_page_items=ONE_PAGE_ITEMS){
   $sql = '
     SELECT
       item_id, 
@@ -144,9 +144,9 @@ function get_price_high_items($db, $is_open = false, $start){
     ORDER BY
       price DESC
     LIMIT
-      ?, 8;
+      ?, ?;
   ';
-  return fetch_all_query($db, $sql, array($start));
+  return fetch_all_query($db, $sql, array($start, $one_page_items));
 }
 
 // itemsテーブルに入っているデータ件数を取得する
@@ -213,20 +213,20 @@ function get_open_pages_items($db){
 }
 
 // 8件ずつ公開可の商品を表示する
-function get_open_8_items($db, $start){
-  return get_8_items($db, true, $start);
+function get_open_8_items($db, $start, $one_page_items){
+  return get_8_items($db, true, $start, $one_page_items);
 }
 
-function get_open_new_items($db, $start){
-  return get_new_items($db, true, $start);
+function get_open_new_items($db, $start, $one_page_items){
+  return get_new_items($db, true, $start, $one_page_items);
 }
 
-function get_open_price_low_items($db, $start){
-  return get_price_low_items($db, true, $start);
+function get_open_price_low_items($db, $start, $one_page_items){
+  return get_price_low_items($db, true, $start, $one_page_items);
 }
 
-function get_open_price_high_items($db, $start){
-  return get_price_high_items($db, true, $start);
+function get_open_price_high_items($db, $start, $one_page_items){
+  return get_price_high_items($db, true, $start, $one_page_items);
 }
 
 function get_open_ranking_items($db){
