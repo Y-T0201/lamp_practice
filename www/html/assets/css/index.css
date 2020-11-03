@@ -9,3 +9,9 @@
 .ranking {
   margin-top: 50px;
 }
+
+.card-img{
+  width: auto; /* Bootstrapで100%指定されているのを、autoに上書きするのがポイントです */
+  max-width: 300px;
+  max-height: 300px;
+}
